@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support Triage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Customer Support Triage</h1>
+        <p class="subtitle">Classify your customer support ticket</p>
+
+        <form id="ticketform">
+            <label for="subject">Subject</label>
+            <input 
+            type="text"
+            id="subject"
+            placeholder="Enter ticket subject"
+            >
+            <label for="text">Customer Message</label>
+            <textarea
+            id="text"
+            placeholder="Enter customer message"
+            rows="6"
+            ></textarea>
+
+            <button type="submit">Predict</button>
+
+        </form>
+
+        <div id="result"></div>
+
+    </div>
+    
+    <script src="script.js"></script>
+
+</body>
+</html>    
