@@ -7,17 +7,9 @@
   scroll-behavior: smooth;
 }
 
-:root{
-  --bg-color:#191819;
-  --second-bg-color: #2c272c;
-  --text-color: white;
-  --main-color: #ea0cdb;
-}
-
 body {
   margin: 0;
-  font-family: 'poppins', sans-serif;
-  background:  #0b1120;
+  background: #0b1120;
   color: #e5e7eb;
 }
 
@@ -27,24 +19,25 @@ body {
   align-items: center;
   min-height: 100vh;
   padding: 50px 20px;
+
   background:
     radial-gradient(circle at top left, #331d33 0, transparent 35%),
     radial-gradient(circle at bottom right, #371f37 0, transparent 35%),
     #0b1120;
 }
 
-.container{
+.container {
+  width: 100%;
   max-width: 850px;
   margin: 0 auto;
-;
 }
 
-.header{
+.header {
   text-align: center;
   margin-bottom: 30px;
 }
 
-.header h1{
+.header h1 {
   margin: 0 0 12px;
   font-size: 32px;
   font-weight: 700;
@@ -52,26 +45,25 @@ body {
   color: #f8fafc;
 }
 
-.header p{
+.header p {
   margin: 0;
   color: #818fa1;
   font-size: 14px;
 }
 
-.card{
+.card {
   background: rgba(82, 37, 107, 0.88);
-  border: none;
   padding: 30px;
   border-radius: 18px;
   box-shadow: 0 20px 50px rgba(49, 49, 49, 0.35);
 }
 
-.form-group{
+.form-group {
   margin-bottom: 24px;
 }
 
-.form-group label{
-  display: flex;
+.form-group label {
+  display: block;
   margin-bottom: 9px;
   color: #cbd5e1;
   font-size: 1rem;
@@ -79,7 +71,7 @@ body {
 }
 
 input,
-textarea{
+textarea {
   width: 100%;
   padding: 14px 15px;
   border: 1px solid #ab65b1;
@@ -91,17 +83,18 @@ textarea{
 }
 
 input:focus,
-textarea:focus{
+textarea:focus {
   outline: none;
   border-color: #e26ff7;
+  box-shadow: 0 0 0 2px rgba(226, 111, 247, 0.15);
 }
 
-textarea{
+textarea {
   min-height: 160px;
   resize: vertical;
 }
 
-button{
+button {
   width: 160px;
   padding: 14px;
   border: none;
@@ -111,33 +104,35 @@ button{
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
-button:hover{
+button:not(:disabled):hover {
   background: #f403f4;
   color: #050801;
-  box-shadow: 0 0 5px #f403f4,
-              0 0 25px #f403f4,
-              0 0 50px #f403f4,
-              0 0 200px #f403f4;
-  -webkit-box-reflect: below 1px linear-gradient 
-  (transparent, #0005); 
-  transform: scale(1.1);
+  box-shadow:
+    0 0 5px #f403f4,
+    0 0 25px #f403f4,
+    0 0 50px #f403f4,
+    0 0 100px #f403f4;
+  transform: scale(1.05);
 }
 
-button:disabled{
-  background-color: #f403f4;
+button:disabled {
+  background-color: #8b4b8b;
+  color: #d1d5db;
   cursor: not-allowed;
+  opacity: 0.7;
 }
-          
-.loading{
+
+.loading {
   text-align: center;
   margin-top: 20px;
   color: #e3a5fc;
   font-weight: 600;
 }
 
-.error{
+.error {
   margin-top: 20px;
   padding: 12px;
   border-radius: 8px;
@@ -145,27 +140,26 @@ button:disabled{
   color: #ffffff;
 }
 
-.result{
+.result {
   margin-top: 25px;
   padding: 20px;
   border-radius: 10px;
   background: #b761bd;
-  border: none;
   text-align: center;
 }
 
-.result h2{
+.result h2 {
   margin-top: 0;
   font-size: 20px;
 }
 
-.category{
+.category {
   font-size: 22px;
   font-weight: 700;
   text-transform: capitalize;
 }
 
-.footer{
+.footer {
   text-align: center;
   margin-top: 25px;
   color: #6b7280;
@@ -173,15 +167,19 @@ button:disabled{
 }
 
 @media (max-width: 600px) {
-  .app{
+  .app {
     padding: 25px 15px;
   }
 
-  .card{
+  .card {
     padding: 20px;
   }
 
-  .header h1{
+  .header h1 {
     font-size: 26px;
+  }
+
+  button {
+    width: 100%;
   }
 }
