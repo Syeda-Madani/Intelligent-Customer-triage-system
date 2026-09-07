@@ -71,6 +71,7 @@ async def predict(ticket: Ticket):
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     connected_clients.add(websocket)
+    await websocket.send_json({"message": "Live updates connected"})
 
     try:
         while True:
