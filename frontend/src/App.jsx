@@ -10,7 +10,7 @@ function App() {
   const [liveMessage, setLiveMessage] = useState("");
 
   useEffect(() => {
-    const socket = new WebSocket("ws://127.0.0.1:8000/ws");
+    const socket = new WebSocket("wss://intelligent-customer-triage-system-production.up.railway.app/ws");
 
     socket.onopen = () => {
       console.log("WebSocket connected");
@@ -41,7 +41,7 @@ function App() {
     setPrediction("");
 
     try {
-    const response = await fetch("http://127.0.0.1:8000/predict", {
+    const response = await fetch("https://intelligent-customer-triage-system-production.up.railway.app/predict", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
