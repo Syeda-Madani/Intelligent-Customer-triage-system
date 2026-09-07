@@ -1,5 +1,5 @@
 fastapi
-uvicorn[standard]==0.52.4
+uvicorn[standard]
 joblib
 scikit-learn==1.6.1
 nltk
