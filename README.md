@@ -1,8 +1,15 @@
-# Customer Support Triage System
+# Intelligent Customer Triage System
 
-## 1. Project Overview
+A machine-learning-based customer support ticket classification system. It predicts one of five ticket categories through a React frontend and FastAPI backend.
 
-This project is a machine learning-based customer support ticket classification system. It automatically classifies a customer support ticket into one of five categories:
+## Live Demo
+
+- Frontend: [Vercel](https://intelligent-customer-triage-system.vercel.app)
+- Backend API documentation: [Railway FastAPI Docs](https://intelligent-customer-triage-system-production.up.railway.app/docs)
+
+## Project Overview
+
+The system classifies customer support tickets into:
 
 - `account_access`
 - `billing`
@@ -10,24 +17,20 @@ This project is a machine learning-based customer support ticket classification 
 - `refund_request`
 - `shipping_delivery`
 
-The trained machine learning model is exposed through a FastAPI REST API.
+Users enter a ticket subject and description in the web application. The FastAPI backend preprocesses the text, uses the trained model, and returns the predicted category.
 
-## 2. Dataset
+## Dataset and Features
 
-The project uses a customer support ticket dataset containing customer support subjects and text messages.
-
-The main input features used for classification are:
+The model uses customer support ticket data with two main input fields:
 
 - `subject`
 - `text`
 
-The two processed fields were combined into a single `combined_text` feature before vectorization.
+These fields are combined into a single `combined_text` feature before preprocessing and vectorization.
 
-## 3. NLP Preprocessing
+## NLP Preprocessing
 
-The text was preprocessed before training the machine learning model.
-
-The preprocessing steps include:
+Text preprocessing includes:
 
 1. Expanding contractions
 2. Converting text to lowercase
@@ -37,54 +40,37 @@ The preprocessing steps include:
 6. POS tagging
 7. Lemmatization
 
-The preprocessing logic is stored in:
+The preprocessing logic is in:
 
-`preprocessing.py`
+```text
+Backend/preprocessing.py
+```
 
-## 4. Feature Extraction
+## Feature Extraction and Model
 
-Bag of Words (BoW) was used to convert the processed text into numerical features.
+Bag of Words (BoW) converts processed text into numerical features.
 
-The trained vectorizer is saved as:
+- Vectorizer: `Backend/bow_vectorizer.pkl`
+- Model: `Backend/triage_Lr_model.pkl`
+- Algorithm: Logistic Regression
 
-`bow_vectorizer.pkl`
+The model was evaluated using accuracy, precision, recall, F1-score, a classification report, and a confusion matrix. It achieved approximately **88.5% accuracy** on the test data.
 
-The same vectorizer is loaded by the API when making predictions.
+## API and WebSocket Features
 
-## 5. Machine Learning Model
+The FastAPI application is in:
 
-A Logistic Regression classifier was trained using the Bag of Words features.
+```text
+Backend/app.py
+```
 
-The trained model is saved as:
+### Prediction Endpoint
 
-`triage_Lr_model.pkl`
+```text
+POST /predict
+```
 
-The model was evaluated using:
-
-- Accuracy
-- Precision
-- Recall
-- F1-score
-- Classification report
-- Confusion matrix
-
-The model achieved approximately **88.5% accuracy** on the test data.
-
-## 6. FastAPI
-
-FastAPI is used to provide an API for making predictions.
-
-The main API file is:
-
-`main.py`
-
-The primary endpoint is:
-
-`POST /predict`
-
-The API receives a customer support ticket and returns the predicted category.
-
-Example input:
+Example request:
 
 ```json
 {
@@ -93,7 +79,7 @@ Example input:
 }
 ```
 
-Example output:
+Example response:
 
 ```json
 {
@@ -101,46 +87,91 @@ Example output:
 }
 ```
 
-## 7. Project Structure
+### WebSocket Endpoint
 
 ```text
-Customer_triage_system_Project/
+/ws
+```
+
+The frontend uses WebSockets to show live connection updates.
+
+## Technology Stack
+
+- React and Vite
+- FastAPI and Uvicorn
+- scikit-learn
+- NLTK
+- Logistic Regression
+- CountVectorizer
+- Railway for backend deployment
+- Vercel for frontend deployment
+
+## Project Structure
+
+```text
+Intelligent-Customer-triage-system/
+├── Backend/
+│   ├── app.py
+│   ├── preprocessing.py
+│   ├── download_nltk.py
+│   ├── requirements.txt
+│   ├── triage_Lr_model.pkl
+│   └── bow_vectorizer.pkl
 │
-├── main.py
-├── preprocessing.py
-├── triage_Lr_model.pkl
-├── bow_vectorizer.pkl
-├── requirements.txt
-└── README.md
+└── frontend/
+    ├── src/
+    │   ├── App.jsx
+    │   └── App.css
+    ├── package.json
+    └── vite.config.js
 ```
 
-## 8. Installation
+## Run Locally
 
-Install the required packages using:
+### Backend
 
 ```bash
+cd Backend
 pip install -r requirements.txt
+python download_nltk.py
+uvicorn app:app --reload
 ```
 
-## 9. Running the API
+The backend runs at:
 
-Start the FastAPI server using:
+```text
+http://127.0.0.1:8000
+```
+
+API documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+### Frontend
 
 ```bash
-uvicorn main:app --reload
+cd frontend
+npm install
+npm run dev
 ```
 
-The API will run locally at:
+The frontend runs at:
 
-`http://127.0.0.1:8000`
+```text
+http://localhost:5173
+```
 
-FastAPI's interactive documentation can be accessed at:
+## Deployment
 
-`http://127.0.0.1:8000/docs`
+| Service | Platform | URL |
+|---|---|---|
+| Frontend | Vercel | https://intelligent-customer-triage-system.vercel.app |
+| Backend | Railway | https://intelligent-customer-triage-system-production.up.railway.app |
+| API Docs | Railway | https://intelligent-customer-triage-system-production.up.railway.app/docs |
 
-Use the `/docs` page to test the `/predict` endpoint.
-
-## 10. Project Workflow
+## Project Workflow
 
 ```text
 Customer Support Ticket
@@ -155,3 +186,7 @@ Logistic Regression Model
           ↓
 Predicted Support Category
 ```
+
+## Author
+
+Syeda Faiza Adil
